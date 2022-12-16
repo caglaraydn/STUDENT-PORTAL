@@ -1,6 +1,0 @@
-namespace Crs{
-
-    class course{
-        public:
-            string name;
-            string professor;
