@@ -1,0 +1,36 @@
+void calculateGPA()
+{
+    int course;
+    cout << "How many course will you enter? : ";
+    cin >> course;
+    cout << endl;
+    
+    float point[course];
+    float credit[course];
+    
+    for(int i=0; i<course; i++)
+    {
+        
+        cout << "Course " << i+1 << " point: ";
+        cin >> point[i];
+        cout << "Course " << i+1 << " credit: ";
+        cin >> credit[i];
+        cout << endl;
+        
+    }
+    
+    float totCre = 0;
+    float mult;
+    float sumofmult = 0;
+    
+    for(int j=0; j<course; j++)
+    {
+        totCre += credit[j];
+        mult = credit[j]*point[j];
+        sumofmult += mult;
+        
+    }
+    
+    cout << "Total GPA: " << sumofmult/totCre << endl;
+    
+}

@@ -1,0 +1,38 @@
+void CourseWriter()
+{
+    string CourseName;
+    string CourseInfo;
+    char stop = '?';
+    
+    cout << "Course name: ";
+    cin >> CourseName; 
+    cout << endl;
+    cout << "Course info: ";
+    cin >> CourseInfo;
+    
+    ofstream file("Course.bin", ios binary);
+    if(!file.is_open())
+    {
+        cout << "Couldn't open the file";
+        return 0;
+    }
+    
+    for(int i=0; i<CourseName.length(); i++)
+    {
+        
+        file.write((char*)&CourseName[i], sizeof(char));
+        
+    }
+    file.write((char*)&stop, sizeof(char));
+    
+    for(int i=0; i<CourseInfo.length(); i++)
+    {
+        
+        file.write((char*)&CourseInfo[i], sizeof(char));
+        
+    }
+    file.write((char*)&stop, sizeof(char));
+    file.close();
+    
+    return 0;
+}

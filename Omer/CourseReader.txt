@@ -1,0 +1,58 @@
+void CourseReader()
+{
+    Crs::course* sbj;
+    int NumofCorse = 6;
+    const int LimitofCourseName = 20;
+    const int LimitofCourseInfo = 200;
+    
+    ifstream file("Course.bin", ios binary | ios::ate);
+    if(file.is_open())
+    {
+        streampos fileSize = file.tellg();
+        char* cBrick = new char[fileSize];
+        file.seekg(0,ios::beg);
+        file.read(cBrick, fileSize);
+        file.close();
+        
+        char* c = cBrick;
+        sbj = new Crs::course[NumofCorse];
+        
+        for(int i=0; i<NumofCorse; i++)
+        {
+            
+            for(int j=0; j<LimitofCourseName; j++)
+            {
+                if(c != '?')
+                {
+                    sbj[i].CourseName += *((char*)c);
+                    c++;
+                }
+                else
+                {
+                    c++;
+                    break;
+                }
+            }
+            
+            for(int j=0; j<LimitofCourseInfo; j++)
+            {
+                if(c != '?')
+                {
+                    sbj[i].CourseInfo += *((char*)c);
+                    c++;
+                }
+                else
+                {
+                    c++;
+                    break;
+                }
+            }
+            
+        }
+        delete[] cBrick;
+    }
+    else
+    {
+        cout << "Couldn't open the file";
+    }
+}
