@@ -64,12 +64,12 @@ switch(person){
 switch(operation){
         case 1://eğer kullanıcı login yaparsa
             LogIn();
-        break;
+            break;
         
         case 2://eğer kullanıcı signup yaparsa
             Register(); //ilk önce kaydolacak
             LogIn(); //sonra tekrardan login ekranından giriş yapcak
-        break;
+            break;
     }
 
 }
