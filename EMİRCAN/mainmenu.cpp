@@ -20,7 +20,9 @@ do{
 cout<<"Press 1: if you are a professor"<<endl;
 cout<<"Press 2: if you are a teaching assistant"<<endl;
 cout<<"Press 3: if you are a student"<<endl;
+cout<<"Selection: ";
 cin>>person;
+cout<<endl;
 }while(person<1||person>3);
 
 switch(person){
@@ -30,7 +32,9 @@ switch(person){
         cout<<"Please select the operation"<<endl;
         cout<<"Press 1: for login"<<endl;
         cout<<"Press 2: for sign up"<<endl;
+        cout<<"Selection: ";
         cin>>operation;
+        cout<<endl;
     }while(operation<1||operation>2);
     break;
 
@@ -39,7 +43,9 @@ switch(person){
         cout<<"Please select the operation"<<endl;
         cout<<"Press 1: for login"<<endl;
         cout<<"Press 2: for sign up"<<endl;
+        cout<<"Selection: ";
         cin>>operation;
+        cout<<endl;
     }while(operation<1||operation>2);
     break;
 
@@ -48,7 +54,9 @@ switch(person){
         cout<<"Please select the operation"<<endl;
         cout<<"Press 1: for login"<<endl;
         cout<<"Press 2: for sign up"<<endl;
+        cout<<"Selection: ";
         cin>>operation;
+        cout<<endl;
     }while(operation<1||operation>2);
     break;
     }
