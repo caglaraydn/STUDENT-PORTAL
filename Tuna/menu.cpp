@@ -1,5 +1,7 @@
 #include <iostream>
-#include "entry.h"
+#include "asistantentry.h"
+#include "profentry.h"
+#include "studententry.h"
 #include "gpa.h"
 using namespace std;
 
@@ -10,7 +12,9 @@ int main()
   cout<<"***************************************"<<endl;
   cout<<endl;
   short person;
-  short operation;
+  short op1;
+  short op2;
+  short op3;
     
   do{
   cout<<"Select 1 for Student"<<endl;
@@ -29,9 +33,19 @@ int main()
       cout<<"Select 1 for Log in"<<endl;
       cout<<"Select 2 for Sign up"<<endl;
       cout<<"Selection: ";
-      cin>>operation;
+      cin>>op1;
       cout<<endl;
-    }while(operation<1||operation>2);
+    }while(op1<1||op1>2);
+    switch(op1){
+        case 1://eğer kullanıcı login yaparsa
+            StuLog();
+            break;
+        
+        case 2://eğer kullanıcı signup yaparsa
+            StuSign(); //ilk önce kaydolacak
+            StuLog(); //sonra tekrardan login ekranından giriş yapcak
+            break;
+    }
     break;
 
     case 2://T.A 
@@ -40,9 +54,19 @@ int main()
       cout<<"Select 1 for Log in"<<endl;
       cout<<"Select 2 for Sign up"<<endl;
       cout<<"Selection: ";
-      cin>>operation;
+      cin>>op2;
       cout<<endl;
-    }while(operation<1||operation>2);
+    }while(op2<1||op2>2);
+    switch(op2){
+        case 1://eğer kullanıcı login yaparsa
+            AsistLog();
+            break;
+        
+        case 2://eğer kullanıcı signup yaparsa
+            AsistSign(); //ilk önce kaydolacak
+            AsistLog(); //sonra tekrardan login ekranından giriş yapcak
+            break;
+    }
     break;
 
     case 3://Prof
@@ -51,26 +75,23 @@ int main()
       cout<<"Select 1 for Log in"<<endl;
       cout<<"Select 2 for Sign up"<<endl;
       cout<<"Selection: ";
-      cin>>operation;
+      cin>>op3;
       cout<<endl;
-    }while(operation<1||operation>2);
-    break;
-  }
-
-
-switch(operation){
+    }while(op3<1||op3>2);
+    switch(op3){
         case 1://eğer kullanıcı login yaparsa
-            LogIn();
+            ProfLog();
             break;
         
         case 2://eğer kullanıcı signup yaparsa
-            SignUp(); //ilk önce kaydolacak
-            LogIn(); //sonra tekrardan login ekranından giriş yapcak
+            ProfSign(); //ilk önce kaydolacak
+            ProfLog(); //sonra tekrardan login ekranından giriş yapcak
             break;
     }
+    break;
+  }
 
-
-if(person == 1)
+  if(person == 1)
   {
     short select1; //Student
     do
@@ -86,7 +107,7 @@ if(person == 1)
     switch(select1)
     {
       case 1:
-        cout << 1;
+        readcourse();
       case 2:
         cout << 2;
       case 3:
@@ -131,7 +152,7 @@ if(person == 1)
     switch(select3)
     {
       case 1:
-        cout << 1;
+        opencourse();
       case 2:
         cout << 2;
       case 3:

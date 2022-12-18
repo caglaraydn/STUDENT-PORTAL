@@ -183,5 +183,8 @@ void readcourse()
         cout << "Couldn't open the file";
     }
 
-    cout << sbj[0].courseName << " " << sbj[0].profName << " " << sbj[0].profSurname << " " << sbj[0].courseCredit << endl;
+    for(int i=0; i<NumofCourse; i++)
+    {
+        cout << sbj[i].courseName << " " << sbj[i].profName << " " << sbj[i].profSurname << " " << sbj[i].courseCredit << endl;
+    }
 }

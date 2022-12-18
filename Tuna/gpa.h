@@ -21,7 +21,7 @@ void calculateGPA()
         cout << "Course " << i+1 << " credit: ";
         cin >> credit[i];
         cout << endl;
-        }while(point[i]<0 || point[i]>100 || credit[i]<1 ||credit[i]>4);
+        }while(point[i]<0 || point[i]>100 || credit[i]<1 || credit[i]>6);
     }
     
     double totCre = 0;

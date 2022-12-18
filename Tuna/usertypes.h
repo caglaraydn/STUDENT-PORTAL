@@ -3,6 +3,7 @@
 #include <new>
 #include <string>
 #include "course.h"
+#pragma once
 using namespace std;
 
 namespace user{
