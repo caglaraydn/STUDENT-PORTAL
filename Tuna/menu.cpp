@@ -15,7 +15,7 @@ int main()
   short op1;
   short op2;
   short op3;
-    
+  
   do{
   cout<<"Select 1 for Student"<<endl;
   cout<<"Select 2 for Teaching Assistant"<<endl;
@@ -108,12 +108,16 @@ int main()
     {
       case 1:
         readcourse();
+        break;
       case 2:
         cout << 2;
+        break;
       case 3:
         cout << 3;
+        break;
       case 4:
         calculateGPA();
+        break;
     }
   }
 
@@ -132,8 +136,10 @@ int main()
     {
       case 1:
         cout << 1;
+        break;
       case 2:
         cout << 2;
+        break;
     }
   }
   
@@ -153,10 +159,13 @@ int main()
     {
       case 1:
         opencourse();
+        break;
       case 2:
-        cout << 2;
+        readcourse();
+        break;
       case 3:
         cout << 3;
+        break;
     }
   }
     return 0;

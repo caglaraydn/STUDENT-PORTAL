@@ -89,7 +89,8 @@ void opencourse(){
 void readcourse()
 {
     crs::course* sbj;
-    int NumofCourse = 6;
+    int NumofCourse = 0;
+    int countStop = 0;
     const int LimitofCourseName = 25;
     const int LimitofprofName = 10;
     const int LimitofprofSurname = 10;
@@ -106,6 +107,22 @@ void readcourse()
         file.close();
         
         char* c = cBrick;
+        char* tempPtr = cBrick;
+
+        for(int i = 0; i < fileSize; i++){
+            char k = *((char*)tempPtr);
+            
+            if(k != '?'){
+                tempPtr++;
+            }
+            else{
+                countStop++;
+                tempPtr++;
+            }
+        }
+
+        NumofCourse=countStop/4;
+
         sbj = new crs::course[NumofCourse];
         
         for(int i=0; i<NumofCourse; i++)
@@ -185,6 +202,9 @@ void readcourse()
 
     for(int i=0; i<NumofCourse; i++)
     {
-        cout << sbj[i].courseName << " " << sbj[i].profName << " " << sbj[i].profSurname << " " << sbj[i].courseCredit << endl;
+        cout << endl;
+        cout << "Course name: " << sbj[i].courseName << endl;
+        cout << "Professor: " << sbj[i].profName << " " << sbj[i].profSurname << endl;
+        cout << "Course credit: " << sbj[i].courseCredit << endl;
     }
 }

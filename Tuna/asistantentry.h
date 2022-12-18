@@ -60,7 +60,8 @@ void AsistLog(){
     int LimitUsername = 11;
     int LimitPassword = 18;
     user::student* stu;
-    int studentNumber = 50;
+    int asistCount = 0;
+    int countStop = 0;
     char p;
 
     ifstream file("asistsave.bin", ios::binary | ios::ate);
@@ -72,9 +73,24 @@ void AsistLog(){
         file.close();
 
         char* temp = mBlock;
-        
-        stu = new user::student[studentNumber];
-        for(int i = 0; i < studentNumber; i++){
+        char* tempPtr = mBlock;
+
+        for(int i = 0; i < fileSize; i++){
+            char k = *((char*)tempPtr);
+            
+            if(k != '?'){
+                tempPtr++;
+            }
+            else{
+                countStop++;
+                tempPtr++;
+            }
+        }
+
+        asistCount=countStop/2;
+
+        stu = new user::student[asistCount];
+        for(int i = 0; i < asistCount; i++){
 
             
             for(int u = 0; u < LimitUsername; u++){
@@ -117,7 +133,7 @@ void AsistLog(){
     
     while(login){
 
-        for(int i = 0; i < studentNumber; i++){
+        for(int i = 0; i < asistCount; i++){
 
             if(isInfoTrue(inputUsername,inputPassword,stu[i].username,stu[i].password)){
                 cout << endl;

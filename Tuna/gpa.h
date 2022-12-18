@@ -6,6 +6,7 @@ using namespace std;
 void calculateGPA()
 {
     int course;
+    cout << endl;
     cout << "How many course will you enter? : ";
     cin >> course;
     cout << endl;

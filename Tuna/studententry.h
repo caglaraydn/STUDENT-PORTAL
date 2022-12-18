@@ -60,7 +60,8 @@ void StuLog(){
     int LimitUsername = 11;
     int LimitPassword = 18;
     user::student* stu;
-    int studentNumber = 50;
+    int stuCount = 0;
+    int countStop = 0;
     char p;
 
     ifstream file("stusave.bin", ios::binary | ios::ate);
@@ -72,9 +73,24 @@ void StuLog(){
         file.close();
 
         char* temp = mBlock;
-        
-        stu = new user::student[studentNumber];
-        for(int i = 0; i < studentNumber; i++){
+        char* tempPtr = mBlock;
+
+        for(int i = 0; i < fileSize; i++){
+            char k = *((char*)tempPtr);
+            
+            if(k != '?'){
+                tempPtr++;
+            }
+            else{
+                countStop++;
+                tempPtr++;
+            }
+        }
+
+        stuCount=countStop/2;
+
+        stu = new user::student[stuCount];
+        for(int i = 0; i < stuCount; i++){
 
             
             for(int u = 0; u < LimitUsername; u++){
@@ -117,7 +133,7 @@ void StuLog(){
     
     while(login){
 
-        for(int i = 0; i < studentNumber; i++){
+        for(int i = 0; i < stuCount; i++){
 
             if(isInfoTrue(inputUsername,inputPassword,stu[i].username,stu[i].password)){
                 cout << endl;
