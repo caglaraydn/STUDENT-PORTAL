@@ -16,11 +16,13 @@ void StuSign(){
     do{
       cout<<"Please enter your username to be signed up (maximum 11 characters): ";
       cin >> username;
+    }while(username.length()>11);
+    do{
       cout<<"Please enter your password to be signed up (4-18 characters): ";
       cin >> password;
       cout<<"Please enter your password again: ";
       cin>> passSecond;
-    }while(username.length()>11||(password.length()<4||password.length()>18)||password!=passSecond);
+    }while((password.length()<4||password.length()>18)||password!=passSecond);
     cout<<"YOU HAVE SUCCESSFULLY SIGNED UP!"<<endl;
     cout<<endl;
     

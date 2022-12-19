@@ -4,10 +4,10 @@
 #include <string>
 #include "usertypes.h"
 #include "entry.h"
-#pragma once
+#include "gpa.h"
 using namespace std;
 
-void ProfSign(){
+void StuSign(){
 
     string username;
     string password;
@@ -28,7 +28,7 @@ void ProfSign(){
     
 
     char stop = '?';
-    ofstream file("profsave.bin", ios::binary | ios::app);
+    ofstream file("stusave.bin", ios::binary | ios::app);
     if(file.is_open()){
         
         for(int i = 0; i < username.length(); i++){
@@ -54,19 +54,19 @@ void ProfSign(){
 }
 
 
-void ProfLog(){
+void StuLog(){
     
     bool login = true;
     string inputUsername;
     string inputPassword;
     int LimitUsername = 11;
     int LimitPassword = 18;
-    user::prof* prof;
-    int profCount = 0;
+    user::student* stu;
+    int stuCount = 0;
     int countStop = 0;
     char p;
 
-    ifstream file("profsave.bin", ios::binary | ios::ate);
+    ifstream file("stusave.bin", ios::binary | ios::ate);
     if(file.is_open()){
         streampos fileSize = file.tellg();
         char* mBlock = new char[fileSize];
@@ -89,10 +89,10 @@ void ProfLog(){
             }
         }
 
-        profCount=countStop/2;
-  
-        prof = new user::prof[profCount];
-        for(int i = 0; i < profCount; i++){
+        stuCount=countStop/2;
+
+        stu = new user::student[stuCount];
+        for(int i = 0; i < stuCount; i++){
 
             
             for(int u = 0; u < LimitUsername; u++){
@@ -100,7 +100,7 @@ void ProfLog(){
                 p = *((char*)temp);
 
                 if(p != '?'){
-                    prof[i].username += *((char*)temp);
+                    stu[i].username += *((char*)temp);
                     temp++;
 
                 }
@@ -116,7 +116,7 @@ void ProfLog(){
                 p = *((char*)temp);
 
                 if(p != '?'){
-                    prof[i].password += *((char*)temp);
+                    stu[i].password += *((char*)temp);
                     temp++;
 
                 }
@@ -135,12 +135,38 @@ void ProfLog(){
     
     while(login){
 
-        for(int i = 0; i < profCount; i++){
+        for(int i = 0; i < stuCount; i++){
 
-            if(isInfoTrue(inputUsername,inputPassword,prof[i].username,prof[i].password)){
+            if(isInfoTrue(inputUsername,inputPassword,stu[i].username,stu[i].password)){
                 cout << endl;
                 cout << "WELCOME!"<<endl;
                 login = false;
+                short select1; //Student
+                do
+                {
+                cout<<"Press 1: Available Courses"<<endl;
+                cout<<"Press 2: My Courses"<<endl;
+                cout<<"Press 3: My Grades"<<endl;
+                cout<<"Press 4: GPA Calculator"<<endl;
+                cout<<"Selection: ";
+                cin>>select1;
+                }while(select1<1||select1>4);
+
+                switch(select1)
+                {
+                case 1:
+                    readcourse();
+                    break;
+                case 2:
+                    cout << 2;
+                    break;
+                case 3:
+                    cout << 3;
+                    break;
+                case 4:
+                    calculateGPA();
+                    break;
+                }
                 break;
             }
         
@@ -159,7 +185,7 @@ void ProfLog(){
                 
                 switch(op){
                     case 1:
-                        ProfSign();
+                        StuSign();
                         userInfo(inputUsername,inputPassword);
                         login = false;
                         cout<<"WELCOME!"<<endl;

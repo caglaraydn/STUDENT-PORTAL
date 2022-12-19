@@ -19,7 +19,6 @@ namespace user{
         public:
             string username;
             string password;
-            crs::course* courses;
     };
 
     class assistant{
@@ -27,7 +26,6 @@ namespace user{
             string username;
             string password;
             string professor;
-            crs::course* courses;
     };
 
 }

@@ -16,11 +16,13 @@ void AsistSign(){
     do{
       cout<<"Please enter your username to be signed up (maximum 11 characters): ";
       cin >> username;
+    }while(username.length()>11);
+    do{
       cout<<"Please enter your password to be signed up (4-18 characters): ";
       cin >> password;
       cout<<"Please enter your password again: ";
       cin>> passSecond;
-    }while(username.length()>11||(password.length()<4||password.length()>18)||password!=passSecond);
+    }while((password.length()<4||password.length()>18)||password!=passSecond);
     cout<<"YOU HAVE SUCCESSFULLY SIGNED UP!"<<endl;
     cout<<endl;
     
@@ -59,7 +61,7 @@ void AsistLog(){
     string inputPassword;
     int LimitUsername = 11;
     int LimitPassword = 18;
-    user::student* stu;
+    user::assistant* asist;
     int asistCount = 0;
     int countStop = 0;
     char p;
@@ -89,7 +91,7 @@ void AsistLog(){
 
         asistCount=countStop/2;
 
-        stu = new user::student[asistCount];
+        asist = new user::assistant[asistCount];
         for(int i = 0; i < asistCount; i++){
 
             
@@ -98,7 +100,7 @@ void AsistLog(){
                 p = *((char*)temp);
 
                 if(p != '?'){
-                    stu[i].username += *((char*)temp);
+                    asist[i].username += *((char*)temp);
                     temp++;
 
                 }
@@ -114,7 +116,7 @@ void AsistLog(){
                 p = *((char*)temp);
 
                 if(p != '?'){
-                    stu[i].password += *((char*)temp);
+                    asist[i].password += *((char*)temp);
                     temp++;
 
                 }
@@ -135,7 +137,7 @@ void AsistLog(){
 
         for(int i = 0; i < asistCount; i++){
 
-            if(isInfoTrue(inputUsername,inputPassword,stu[i].username,stu[i].password)){
+            if(isInfoTrue(inputUsername,inputPassword,asist[i].username,asist[i].password)){
                 cout << endl;
                 cout << "WELCOME!"<<endl;
                 login = false;
