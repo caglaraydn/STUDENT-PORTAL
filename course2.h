@@ -127,45 +127,12 @@ void opencourse(bool anothercrs){
 
 }
 
-/*askforanothercrs(bool anothercrs){
-    
-    if(anothercrs){
-            short yesno;
-            do{
-            //cout << "Your information is wrong, please try again!!" << endl;
-            cout << "---------------------------------------------" << endl;
-            cout<<"Would you like to add another course?"<<endl;
-            cout<<"Press 1 for YES"<<endl;
-            cout<<"Press 2 for NO"<<endl;
-            cout<<"Selection: ";
-            cin>>yesno;
-            cout<<endl;
-                switch(yesno){
-                    case 1:
-                        opencourse();
-                        
-                        break;
-
-                    case 2:
-                        anothercrs=false;
-                        break;
-                }
-            }while(yesno>2||yesno<1||anothercrs);
-      
-        }
-}*/
-
-
 
 int readcourse(bool boolselectcrs, short person)
 {
     crs::course* sbj;
     int NumofCourse = 0;
     int countStop = 0;
-    //const int LimitofCourseName = 25;
-    //const int LimitofprofName = 10;
-    //const int LimitofprofSurname = 10;
-    //const int LimitofCourseCredit = 2;
     char temp;
     
     ifstream file("Course.bin", ios::binary | ios::ate);
@@ -319,24 +286,3 @@ int readcourse(bool boolselectcrs, short person)
     }
     return 0;
 }
-
-/*void gotocourseselection(int numofcourse, string courseName,string profName, string profSurname, string courseCredit){
-
-    char stop = '?';
-    ofstream file("SelectedCourse.bin", ios::binary | ios::app);
-    if(file.is_open()){
-        
-        short courselect;
-        cin>>courselect;
-
-        while(courselect<numofcourse){
-        file.write(coursename,sizeof(string));
-        file.write(profName,sizeof(string));
-        file.write(profSurname,sizeof(string));
-        file.write(coursecredit,sizeof(string));
-        }
-        
-        file.close();
-
-    }
-}*/
