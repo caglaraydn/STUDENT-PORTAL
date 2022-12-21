@@ -12,7 +12,6 @@ namespace user{
         public:
             string username;
             string password;
-            crs::course* courses;
     };
 
     class prof{

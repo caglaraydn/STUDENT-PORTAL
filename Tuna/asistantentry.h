@@ -139,7 +139,7 @@ void AsistLog(){
 
             if(isInfoTrue(inputUsername,inputPassword,asist[i].username,asist[i].password)){
                 cout << endl;
-                cout << "WELCOME!"<<endl;
+                cout << "WELCOME!";
                 login = false;
                 break;
             }
@@ -162,7 +162,7 @@ void AsistLog(){
                         AsistSign();
                         userInfo(inputUsername,inputPassword);
                         login = false;
-                        cout<<"WELCOME!"<<endl;
+                        cout<<"WELCOME!";
                         break;
                     case 2:
                         userInfo(inputUsername,inputPassword);

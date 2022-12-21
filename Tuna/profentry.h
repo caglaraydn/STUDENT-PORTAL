@@ -139,7 +139,7 @@ void ProfLog(){
 
             if(isInfoTrue(inputUsername,inputPassword,prof[i].username,prof[i].password)){
                 cout << endl;
-                cout << "WELCOME!"<<endl;
+                cout << "WELCOME!";
                 login = false;
                 break;
             }
@@ -162,7 +162,7 @@ void ProfLog(){
                         ProfSign();
                         userInfo(inputUsername,inputPassword);
                         login = false;
-                        cout<<"WELCOME!"<<endl;
+                        cout<<"WELCOME!";
                         break;
                     case 2:
                         userInfo(inputUsername,inputPassword);

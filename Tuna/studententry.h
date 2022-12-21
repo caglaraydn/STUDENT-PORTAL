@@ -7,16 +7,12 @@
 #pragma once
 using namespace std;
 
-void StuSign(){
+void StuSign(string user){
 
-    string username;
+    string username = user;
     string password;
     string passSecond;
-    
-    do{
-      cout<<"Please enter your username to be signed up (maximum 11 characters): ";
-      cin >> username;
-    }while(username.length()>11);
+
     do{
       cout<<"Please enter your password to be signed up (4-18 characters): ";
       cin >> password;
@@ -44,9 +40,7 @@ void StuSign(){
             
         }
         file.write((char*)&stop, sizeof(char));
-        
-        
-        
+
         file.close();
 
     }
@@ -139,7 +133,7 @@ void StuLog(){
 
             if(isInfoTrue(inputUsername,inputPassword,stu[i].username,stu[i].password)){
                 cout << endl;
-                cout << "WELCOME!"<<endl;
+                cout << "WELCOME!";
                 login = false;
                 break;
             }
@@ -159,10 +153,10 @@ void StuLog(){
                 
                 switch(op){
                     case 1:
-                        StuSign();
+                        StuSign(inputUsername);
                         userInfo(inputUsername,inputPassword);
                         login = false;
-                        cout<<"WELCOME!"<<endl;
+                        cout<<"WELCOME!";
                         break;
                     case 2:
                         userInfo(inputUsername,inputPassword);

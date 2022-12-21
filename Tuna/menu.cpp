@@ -15,6 +15,9 @@ int main()
   short op1;
   short op2;
   short op3;
+  bool anothercrs=true;
+  bool boolselectcrs=true;
+  string username;
   
   do{
   cout<<"Select 1 for Student"<<endl;
@@ -42,7 +45,11 @@ int main()
             break;
         
         case 2://eğer kullanıcı signup yaparsa
-            StuSign(); //ilk önce kaydolacak
+            do{
+              cout<<"Please enter your username to be signed up (maximum 11 characters): ";
+              cin >> username;
+            }while(username.length()>11);
+            StuSign(username); //ilk önce kaydolacak
             StuLog(); //sonra tekrardan login ekranından giriş yapcak
             break;
     }
@@ -96,29 +103,31 @@ int main()
     short select1; //Student
     do
     {
+      cout<<endl;
+      cout<<endl;
       cout<<"Press 1: Available Courses"<<endl;
       cout<<"Press 2: My Courses"<<endl;
-      cout<<"Press 3: My Grades"<<endl;
-      cout<<"Press 4: GPA Calculator"<<endl;
+      cout<<"Press 3: GPA Calculator"<<endl;
+      cout<<"Press 4: Exit"<<endl;
       cout<<"Selection: ";
       cin>>select1;
-    }while(select1<1||select1>4);
+      switch(select1)
+      {
+        case 1:
+          readcourse(boolselectcrs,person,username);
+          break;
+        case 2:
+          seecourses(username);
+          break;
+        case 3:
+          calculateGPA();
+          break;
+        case 4:
+          cout<<"See you later.";
+          break;
+      }
+    }while(select1 != 4);
 
-    switch(select1)
-    {
-      case 1:
-        readcourse();
-        break;
-      case 2:
-        cout << 2;
-        break;
-      case 3:
-        cout << 3;
-        break;
-      case 4:
-        calculateGPA();
-        break;
-    }
   }
 
   if (person == 2)
@@ -126,21 +135,23 @@ int main()
     short select2; //T.A
     do
     {
-      cout<<"Press 1: Change Notes"<<endl;
-      cout<<"Press 2: My Courses"<<endl;
+      cout<<endl;
+      cout<<endl;
+      cout<<"Press 1: My Courses"<<endl;
+      cout<<"Press 2: Exit"<<endl;
       cout<<"Selection: ";
       cin>>select2;
-    }while(select2<1||select2>2);
+      switch(select2)
+      {
+        case 1:
+          cout << 1;
+          break;
+        case 2:
+          cout<<"See you later.";
+          break;
+      }
+    }while(select2 != 2);
 
-    switch(select2)
-    {
-      case 1:
-        cout << 1;
-        break;
-      case 2:
-        cout << 2;
-        break;
-    }
   }
   
   if (person == 3)
@@ -148,25 +159,26 @@ int main()
     short select3; //Prof
     do
     {
+      cout<<endl;
+      cout<<endl;
       cout<<"Press 1: Open Courses"<<endl;
       cout<<"Press 2: Courses"<<endl;
-      cout<<"Press 3: Student Grades"<<endl;
+      cout<<"Press 3: Exit"<<endl;
       cout<<"Selection: ";
       cin>>select3;
-    }while(select3<1||select3>3);
-
-    switch(select3)
-    {
-      case 1:
-        opencourse();
-        break;
-      case 2:
-        readcourse();
-        break;
-      case 3:
-        cout << 3;
-        break;
-    }
+      switch(select3)
+      {
+        case 1:
+          opencourse(anothercrs);
+          break;
+        case 2:
+          readcourse(boolselectcrs,person,username);
+          break;
+        case 3:
+          cout<<"See you later.";
+          break;
+      }
+    }while(select3 != 3);
   }
     return 0;
 }
