@@ -7,12 +7,13 @@
 #pragma once
 using namespace std;
 
-void ProfSign(){
+void ProfSign(){//Within the ProfSign function, we get the username and the password with the code written here and save it in a file.
 
-    string username;
-    string password;
-    string passSecond;
+    string username;//Variable for setting the username.
+    string password;//Variable for setting the password.
+    string passSecond;//Variable for checking password for the second time.
     
+    //Gets the username and the password from the user.
     do{
       cout<<"Please enter your username to be signed up (maximum 11 characters): ";
       cin >> username;
@@ -27,25 +28,23 @@ void ProfSign(){
     cout<<endl;
     
 
-    char stop = '?';
-    ofstream file("profsave.bin", ios::binary | ios::app);
+    char stop = '!';//Variable for seperating username and password in the file.
+    ofstream file("profsave.bin", ios::binary | ios::app);//Opens a new file called "profsave.bin" and saves the username and password for professors.
     if(file.is_open()){
         
-        for(int i = 0; i < username.length(); i++){
+        for(int i = 0; i < username.length(); i++){//Saves username.
 
             file.write((char*)&username[i], sizeof(char));
             
         }
-        file.write((char*)&stop, sizeof(char));
+        file.write((char*)&stop, sizeof(char));//Seperating char.
 
-        for(int i = 0; i < password.length(); i++){
+        for(int i = 0; i < password.length(); i++){//Saves password.
 
             file.write((char*)&password[i], sizeof(char));
             
         }
-        file.write((char*)&stop, sizeof(char));
-        
-        
+        file.write((char*)&stop, sizeof(char));//Seperating char.
         
         file.close();
 
@@ -53,23 +52,24 @@ void ProfSign(){
     
 }
 
-
+//With the ProfLog function, we compare the username and password we receive from the user with the previously created file and enable the user to proceed to the next stage.
 void ProfLog(){
     
-    bool login = true;
+    bool login = true;//Variable used to open a new account if you cannot log in with the username and password.
     string inputUsername;
     string inputPassword;
     int LimitUsername = 11;
     int LimitPassword = 18;
-    user::prof* prof;
-    int profCount = 0;
-    int countStop = 0;
-    char p;
+    user::prof* prof;//Makes a dynamic prof array of class prof.
+    int profCount = 0;//Counts profs.
+    int countStop = 0;//Variable for counting exclamation marks.
+    char p;//Variable for checking exclamation marks.
 
+    //Opens the file "profsave.bin" and puts already saved username and passwords to formerly defined array prof for checking the input username and password.
     ifstream file("profsave.bin", ios::binary | ios::ate);
     if(file.is_open()){
         streampos fileSize = file.tellg();
-        char* mBlock = new char[fileSize];
+        char* mBlock = new char[fileSize];//Allocate a char array of file size.
         file.seekg(0,ios::beg);
         file.read(mBlock, fileSize);
         file.close();
@@ -77,10 +77,10 @@ void ProfLog(){
         char* temp = mBlock;
         char* tempPtr = mBlock;
 
-        for(int i = 0; i < fileSize; i++){
+        for(int i = 0; i < fileSize; i++){//This checks how many exclamation marks are there in the file.
             char k = *((char*)tempPtr);
             
-            if(k != '?'){
+            if(k != '!'){
                 tempPtr++;
             }
             else{
@@ -89,17 +89,17 @@ void ProfLog(){
             }
         }
 
-        profCount=countStop/2;
+        profCount=countStop/2;//The reason we divide by 2 is to use 1 exclamation point for each username and password.
   
-        prof = new user::prof[profCount];
-        for(int i = 0; i < profCount; i++){
+        prof = new user::prof[profCount];//This creates a dynamic array to save data in the file to individual spots of the array.
+        for(int i = 0; i < profCount; i++){//Loop for setting individual spots of the array for each professors.
 
             
-            for(int u = 0; u < LimitUsername; u++){
+            for(int u = 0; u < LimitUsername; u++){//Sets username.
 
                 p = *((char*)temp);
 
-                if(p != '?'){
+                if(p != '!'){
                     prof[i].username += *((char*)temp);
                     temp++;
 
@@ -111,11 +111,11 @@ void ProfLog(){
                 
             }
 
-            for(int s = 0; s < LimitPassword; s++){
+            for(int s = 0; s < LimitPassword; s++){//Sets password.
                 
                 p = *((char*)temp);
 
-                if(p != '?'){
+                if(p != '!'){
                     prof[i].password += *((char*)temp);
                     temp++;
 
@@ -127,26 +127,26 @@ void ProfLog(){
                 
             }
         }
-        delete[] mBlock;
+        delete[] mBlock;//Deallacote heap memory by deleting mBlock.
     }
 
     
-    userInfo(inputUsername,inputPassword);
+    userInfo(inputUsername,inputPassword);//Gets the user info.
     
     while(login){
 
-        for(int i = 0; i < profCount; i++){
+        for(int i = 0; i < profCount; i++){//For every professors saved in to prof array checks whether the input info is correct or not.
 
-            if(isInfoTrue(inputUsername,inputPassword,prof[i].username,prof[i].password)){
+            if(isInfoTrue(inputUsername,inputPassword,prof[i].username,prof[i].password)){//Checks the user info. 
                 cout << endl;
                 cout << "WELCOME!";
-                login = false;
+                login = false;//If the info is correct sets login to false so system let the user in.
                 break;
             }
         
         }
 
-        if(login){
+        if(login){//If the info is incorrect asks the user whether they want to sign up or try log in again.
             short op;
             cout << "Your information is wrong, please try again!!" << endl;
             cout << "---------------------------------------------" << endl;
@@ -161,7 +161,7 @@ void ProfLog(){
                     case 1:
                         ProfSign();
                         userInfo(inputUsername,inputPassword);
-                        login = false;
+                        login = false;//If the info is correct sets login to false so system let the user in.
                         cout<<"WELCOME!";
                         break;
                     case 2:

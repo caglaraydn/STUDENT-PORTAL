@@ -40,17 +40,17 @@ int main()
       cout<<endl;
     }while(op1<1||op1>2);
     switch(op1){
-        case 1://eğer kullanıcı login yaparsa
+        case 1://If user Log in
             StuLog();
             break;
         
-        case 2://eğer kullanıcı signup yaparsa
-            do{
+        case 2://If user Sign Up
+            do{//We asked student username on main because we needed username to be a universal variable.
               cout<<"Please enter your username to be signed up (maximum 11 characters): ";
               cin >> username;
             }while(username.length()>11);
-            StuSign(username); //ilk önce kaydolacak
-            StuLog(); //sonra tekrardan login ekranından giriş yapcak
+            StuSign(username); //First Sign Up
+            StuLog(); //Then Log In
             break;
     }
     break;
@@ -65,13 +65,13 @@ int main()
       cout<<endl;
     }while(op2<1||op2>2);
     switch(op2){
-        case 1://eğer kullanıcı login yaparsa
+        case 1://If user Log in
             AsistLog();
             break;
         
-        case 2://eğer kullanıcı signup yaparsa
-            AsistSign(); //ilk önce kaydolacak
-            AsistLog(); //sonra tekrardan login ekranından giriş yapcak
+        case 2://If user Sign Up
+            AsistSign(); //First Sign Up
+            AsistLog(); //Then Log In
             break;
     }
     break;
@@ -86,13 +86,13 @@ int main()
       cout<<endl;
     }while(op3<1||op3>2);
     switch(op3){
-        case 1://eğer kullanıcı login yaparsa
+        case 1://If user Log in
             ProfLog();
             break;
         
-        case 2://eğer kullanıcı signup yaparsa
-            ProfSign(); //ilk önce kaydolacak
-            ProfLog(); //sonra tekrardan login ekranından giriş yapcak
+        case 2://If user Sign Up
+            ProfSign(); //First Sign Up
+            ProfLog(); //Then Log In
             break;
     }
     break;
@@ -114,16 +114,16 @@ int main()
       switch(select1)
       {
         case 1:
-          readcourse(boolselectcrs,person,username);
+          readcourse(boolselectcrs,person,username);//Shows all the courses.
           break;
         case 2:
-          seecourses(username);
+          seecourses(username);//Shows selected courses.
           break;
         case 3:
-          calculateGPA();
+          calculateGPA();//Lets user calculate gpa.
           break;
         case 4:
-          cout<<"See you later.";
+          cout<<"See you later.";//Exit
           break;
       }
     }while(select1 != 4);
@@ -144,10 +144,10 @@ int main()
       switch(select2)
       {
         case 1:
-          cout << 1;
+          cout << 1;//We couldn't manage the do this one.
           break;
         case 2:
-          cout<<"See you later.";
+          cout<<"See you later.";//Exit
           break;
       }
     }while(select2 != 2);
@@ -169,13 +169,13 @@ int main()
       switch(select3)
       {
         case 1:
-          opencourse(anothercrs);
+          opencourse(anothercrs);//Let's profs open courses.
           break;
         case 2:
-          readcourse(boolselectcrs,person,username);
+          readcourse(boolselectcrs,person,username);//Shows the list of opened courses to profs.
           break;
         case 3:
-          cout<<"See you later.";
+          cout<<"See you later.";//Exit
           break;
       }
     }while(select3 != 3);

@@ -7,12 +7,13 @@
 #pragma once
 using namespace std;
 
-void AsistSign(){
+void AsistSign(){//Within the AsistSign function, we get the username and the password with the code written here and save it in a file.
 
-    string username;
-    string password;
-    string passSecond;
+    string username;//Variable for setting the username.
+    string password;//Variable for setting the password.
+    string passSecond;//Variable for checking password for the second time.
     
+    //Gets the username and the password from the user.
     do{
       cout<<"Please enter your username to be signed up (maximum 11 characters): ";
       cin >> username;
@@ -27,25 +28,23 @@ void AsistSign(){
     cout<<endl;
     
 
-    char stop = '?';
-    ofstream file("asistsave.bin", ios::binary | ios::app);
+    char stop = '!';//Variable for seperating username and password in the file.
+    ofstream file("asistsave.bin", ios::binary | ios::app);//Opens a new file called "asistsave.bin" and saves the username and password for asistants.
     if(file.is_open()){
         
-        for(int i = 0; i < username.length(); i++){
+        for(int i = 0; i < username.length(); i++){//Saves username.
 
             file.write((char*)&username[i], sizeof(char));
             
         }
-        file.write((char*)&stop, sizeof(char));
+        file.write((char*)&stop, sizeof(char));//Seperating char.
 
-        for(int i = 0; i < password.length(); i++){
+        for(int i = 0; i < password.length(); i++){//Saves password.
 
             file.write((char*)&password[i], sizeof(char));
             
         }
-        file.write((char*)&stop, sizeof(char));
-        
-        
+        file.write((char*)&stop, sizeof(char));//Seperating char.
         
         file.close();
 
@@ -53,23 +52,24 @@ void AsistSign(){
     
 }
 
-
+//With the AsistLog function, we compare the username and password we receive from the user with the previously created file and enable the user to proceed to the next stage.
 void AsistLog(){
     
-    bool login = true;
+    bool login = true;//Variable used to open a new account if you cannot log in with the username and password.
     string inputUsername;
     string inputPassword;
     int LimitUsername = 11;
     int LimitPassword = 18;
-    user::assistant* asist;
-    int asistCount = 0;
-    int countStop = 0;
-    char p;
+    user::assistant* asist;//Makes a dynamic asist array of class asistant.
+    int asistCount = 0;//Counts asistants.
+    int countStop = 0;//Variable for counting exclamation marks.
+    char p;//Variable for checking exclamation marks.
 
+    //Opens the file "asistsave.bin" and puts already saved username and passwords to formerly defined array asist for checking the input username and password.
     ifstream file("asistsave.bin", ios::binary | ios::ate);
     if(file.is_open()){
         streampos fileSize = file.tellg();
-        char* mBlock = new char[fileSize];
+        char* mBlock = new char[fileSize];//Allocate a char array of file size.
         file.seekg(0,ios::beg);
         file.read(mBlock, fileSize);
         file.close();
@@ -77,10 +77,10 @@ void AsistLog(){
         char* temp = mBlock;
         char* tempPtr = mBlock;
 
-        for(int i = 0; i < fileSize; i++){
+        for(int i = 0; i < fileSize; i++){//This checks how many exclamation marks are there in the file.
             char k = *((char*)tempPtr);
             
-            if(k != '?'){
+            if(k != '!'){
                 tempPtr++;
             }
             else{
@@ -89,17 +89,17 @@ void AsistLog(){
             }
         }
 
-        asistCount=countStop/2;
+        asistCount=countStop/2;//The reason we divide by 2 is to use 1 exclamation point for each username and password.
 
-        asist = new user::assistant[asistCount];
-        for(int i = 0; i < asistCount; i++){
+        asist = new user::assistant[asistCount];//This creates a dynamic array to save data in the file to individual spots of the array.
+        for(int i = 0; i < asistCount; i++){//Loop for setting individual spots of the array for each asistants.
 
             
-            for(int u = 0; u < LimitUsername; u++){
+            for(int u = 0; u < LimitUsername; u++){//Sets username.
 
                 p = *((char*)temp);
 
-                if(p != '?'){
+                if(p != '!'){
                     asist[i].username += *((char*)temp);
                     temp++;
 
@@ -111,11 +111,11 @@ void AsistLog(){
                 
             }
 
-            for(int s = 0; s < LimitPassword; s++){
+            for(int s = 0; s < LimitPassword; s++){//Sets password.
                 
                 p = *((char*)temp);
 
-                if(p != '?'){
+                if(p != '!'){
                     asist[i].password += *((char*)temp);
                     temp++;
 
@@ -127,26 +127,26 @@ void AsistLog(){
                 
             }
         }
-        delete[] mBlock;
+        delete[] mBlock;//Deallacote heap memory by deleting mBlock.
     }
 
     
-    userInfo(inputUsername,inputPassword);
+    userInfo(inputUsername,inputPassword);//Gets the user info.
     
     while(login){
 
-        for(int i = 0; i < asistCount; i++){
+        for(int i = 0; i < asistCount; i++){//For every asistans saved in to asist array checks whether the input info is correct or not.
 
-            if(isInfoTrue(inputUsername,inputPassword,asist[i].username,asist[i].password)){
+            if(isInfoTrue(inputUsername,inputPassword,asist[i].username,asist[i].password)){//Checks the user info.
                 cout << endl;
                 cout << "WELCOME!";
-                login = false;
+                login = false;//If the info is correct sets login to false so system let the user in.
                 break;
             }
         
         }
 
-        if(login){
+        if(login){//If the info is incorrect asks the user whether they want to sign up or try log in again.
             short op;
             cout << "Your information is wrong, please try again!!" << endl;
             cout << "---------------------------------------------" << endl;
@@ -161,7 +161,7 @@ void AsistLog(){
                     case 1:
                         AsistSign();
                         userInfo(inputUsername,inputPassword);
-                        login = false;
+                        login = false;//If the info is correct sets login to false so system let the user in.
                         cout<<"WELCOME!";
                         break;
                     case 2:

@@ -3,9 +3,8 @@
 #include <string>
 using namespace std;
 
-namespace crs{
-    class course{
-        public:
+namespace crs{//Sets namespace for course.
+    struct course{//Sets a struct for course with 4 objects.
             string courseName;
             string profName;
             string profSurname;
@@ -36,7 +35,7 @@ namespace crs{
         for(int i = 0; i < fileSize; i++){
             char k = *((char*)tempPtr);
             
-            if(k != '?'){
+            if(k != '!'){
                 tempPtr++;
             }
             else{
@@ -54,7 +53,7 @@ namespace crs{
             {
                 temp = *((char*)c);
 
-                if(temp != '?')
+                if(temp != '!')
                 {
                     temporary[i].courseName += *((char*)c);
                     c++;
@@ -76,16 +75,12 @@ namespace crs{
 
 void gotocourseselection(crs::course* sbj, short crselect, string user){
 
-    ifstream entryfile("Course.bin",ios::binary|ios::app); //open Course.bin file that includes courses' data to copy with read mode
-    
+    ifstream entryfile("course.bin",ios::binary|ios::app); //Open course.bin file that includes courses' data to copy with read mode
 
-
-
-    
-    char stop = '?';
-    string filex = sbj[crselect].courseName;
-    filex += ".bin";
-    ofstream newfile(filex, ios::binary | ios::app);
+    char stop = '!';
+    string filex = sbj[crselect].courseName;//Sets the filename to course name.
+    filex += ".bin";//Adds ".bin" to filename.
+    ofstream newfile(filex, ios::binary | ios::app);//Makes a new file for selected courses and put the usernames inside them.
     for(int i=0; i<user.length(); i++)
     {
         newfile.write((char*)&user[i], sizeof(char));
@@ -94,18 +89,16 @@ void gotocourseselection(crs::course* sbj, short crselect, string user){
     newfile.close();
     
 
-
-
-    string filename = user;
-    filename += ".bin";
-    ofstream outfile(filename, ios::binary | ios::app);
+    string filename = user;//Sets the filename to username from main.
+    filename += ".bin";//Adds ".bin" to filename.
+    ofstream outfile(filename, ios::binary | ios::app);//Makes a new file for selected users and put the course data inside them.
     string line;
     if(entryfile&&outfile){
-        while(getline(entryfile, line)){
-            outfile << sbj[crselect].courseName<<"?";
-            outfile << sbj[crselect].profName<<"?";
-            outfile << sbj[crselect].profSurname<<"?";
-            outfile << sbj[crselect].courseCredit<<"?";
+        while(getline(entryfile, line)){//Getline gets all the lines on entryfile to line. If the stream is ready for more operations it sets to 1 so the loop continues.
+            outfile << sbj[crselect].courseName<<"!";
+            outfile << sbj[crselect].profName<<"!";
+            outfile << sbj[crselect].profSurname<<"!";
+            outfile << sbj[crselect].courseCredit<<"!";
         }
         cout << "The course has been selected! \n";
     }
@@ -117,16 +110,16 @@ void gotocourseselection(crs::course* sbj, short crselect, string user){
 }
 
 
-void seecourses(string user)
+void seecourses(string user)//Let's students see their selected courses.
 {
     short NumofCourse = 0;
     short countStop = 0;
-    crs::course* temporary;
+    crs::course* temporary;//Sets a temporary array.
     char temp;
-    string filename = user;
-    filename += ".bin";
+    string filename = user;//Sets the filename to username from main.
+    filename += ".bin";//Adds ".bin" to filename.
 
-    ifstream file(filename, ios::binary | ios::ate);
+    ifstream file(filename, ios::binary | ios::ate);//Opens the student named file and makes a new char array that contains everything inside the file.
     if(file.is_open())
     {
         streampos fileSize = file.tellg();
@@ -141,7 +134,7 @@ void seecourses(string user)
         for(int i = 0; i < fileSize; i++){
             char k = *((char*)tempPtr);
             
-            if(k != '?'){
+            if(k != '!'){
                 tempPtr++;
             }
             else{
@@ -150,7 +143,7 @@ void seecourses(string user)
             }
         }
 
-        NumofCourse=countStop/4; /*For each course data in the array we add 4 question mark. So that the total of the question mark 
+        NumofCourse=countStop/4; /*For each course data in the array we add 4 exclamation mark. So that the total of the exclamation mark 
         divided by 4 gives us the number of course.*/     
 
         temporary = new crs::course[NumofCourse]; //this is the dynamic array that storage each courses' data
@@ -158,11 +151,11 @@ void seecourses(string user)
         for(int i=0; i<NumofCourse; i++)
         {
             
-            for(int j=0; j<25; j++)
+            for(int j=0; j<25; j++)//Sets the course name.
             {
                 temp = *((char*)c);
 
-                if(temp != '?')
+                if(temp != '!')
                 {
                     temporary[i].courseName += *((char*)c);
                     c++;
@@ -174,11 +167,11 @@ void seecourses(string user)
                 }
             }
             
-            for(int j=0; j<10; j++)
+            for(int j=0; j<10; j++)//Sets the prof name.
             {
                 temp = *((char*)c);
                 
-                if(temp != '?')
+                if(temp != '!')
                 {
                     temporary[i].profName += *((char*)c);
                     c++;
@@ -190,11 +183,11 @@ void seecourses(string user)
                 }
             }
 
-            for(int j=0; j<10; j++)
+            for(int j=0; j<10; j++)//Sets the prof surname.
             {
                 temp = *((char*)c);
                 
-                if(temp != '?')
+                if(temp != '!')
                 {
                     temporary[i].profSurname += *((char*)c);
                     c++;
@@ -206,11 +199,11 @@ void seecourses(string user)
                 }
             }
             
-            for(int j=0; j<2; j++)
+            for(int j=0; j<2; j++)//Sets the course credit.
             {
                 temp = *((char*)c);
 
-                if(temp != '?')
+                if(temp != '!')
                 {
                     temporary[i].courseCredit += *((char*)c);
                     c++;
@@ -230,8 +223,9 @@ void seecourses(string user)
         cout<<"Can't open the file or it doesn't exist"<<endl;
     }
 
+    //Prints the courses that the student takes.
     cout<<endl;
-    cout<<"THE COURSES ARE:"<<endl;
+    cout<<"My Courses:"<<endl;
 
     for(int i=0; i<NumofCourse; i++)
     {
@@ -244,19 +238,21 @@ void seecourses(string user)
 }
 
 
-void opencourse(bool anothercrs){
+void opencourse(bool anothercrs){//This function allows profs to open a course.
 
     string courseName;
     string courseCredit;
     string profName;
     string profSurname;
 
+    //Gets coursename.
     do{
         cout << "Please enter a course name (Maximum 10 characters): ";
         cin >> courseName;
         cout << endl;
     }while(courseName.length()<1 || courseName.length()>25);
 
+    //Gets profs full name.
     do{
         cout << "Please enter the prof name (Maximum 10 characters): ";
         cin >> profName;
@@ -265,38 +261,39 @@ void opencourse(bool anothercrs){
         cout << endl;
     }while(profName.length()<1 || profName.length()>10 || profSurname.length()<1 || profSurname.length()>10);
 
+    //Gets course credit.
     do{
         cout << "Please enter the credit of the course: ";
         cin >> courseCredit;
     }while(courseCredit.length()!=1);
     
-    char stop = '?'; //we will separate the strings thanks to by adding "?" mark at the end of each string
+    char stop = '!'; //Variable for seperating objects of the struct course in the file.
     
-    ofstream file("Course.bin", ios::binary | ios::app);
+    ofstream file("course.bin", ios::binary | ios::app);//Opens a file for saving every course created by the profs.
     if(file.is_open()){
         
-        for(int i = 0; i < courseName.length(); i++){
+        for(int i = 0; i < courseName.length(); i++){//Saves the name.
 
             file.write((char*)&courseName[i], sizeof(char));
             
         }
         file.write((char*)&stop, sizeof(char));
 
-        for(int i = 0; i < profName.length(); i++){
+        for(int i = 0; i < profName.length(); i++){//Saves the prof name.
 
             file.write((char*)&profName[i], sizeof(char));
             
         }
         file.write((char*)&stop, sizeof(char));
 
-        for(int i = 0; i < profSurname.length(); i++){
+        for(int i = 0; i < profSurname.length(); i++){//Saves the prof surname.
 
             file.write((char*)&profSurname[i], sizeof(char));
             
         }
         file.write((char*)&stop, sizeof(char));
 
-        for(int i = 0; i < courseCredit.length(); i++){
+        for(int i = 0; i < courseCredit.length(); i++){//Saves the credit.
 
             file.write((char*)&courseCredit[i], sizeof(char));
             
@@ -307,11 +304,10 @@ void opencourse(bool anothercrs){
 
     }
     
-    //while anothercrs is true than execute this code
+    //We set the anothercrs true in the beginning. It lets prof to save more then 1 courses.
     if(anothercrs){
         short yesno;
         do{
-            //cout << "Your information is wrong, please try again!!" << endl;
             cout << "---------------------------------------------" << endl;
             cout<<"Would you like to add another course?"<<endl;
             cout<<"Press 1 for YES"<<endl;
@@ -321,11 +317,11 @@ void opencourse(bool anothercrs){
             cout<<endl;
             switch(yesno){
                 case 1:
-                    opencourse(anothercrs);       
+                    opencourse(anothercrs);//Lets the prof open a course.    
                     break;
 
                 case 2:
-                    anothercrs=false;
+                    anothercrs=false;//Sets the value pf anothercrs false so it doesn't repeat.
                     break;
             }
         }while(yesno>2||yesno<1);
@@ -335,18 +331,19 @@ void opencourse(bool anothercrs){
 }
 
 
-int readcourse(bool boolselectcrs, short person, string user)
+int readcourse(bool boolselectcrs, short person, string user)//This function lets students and profs to see the formerly open courses.
 {
-    int NumofCourse = 0;
-    int countStop = 0;
+    int NumofCourse = 0;//Counts courses.
+    int countStop = 0;//Variable for counting exclamation marks.
+    crs::course* sbj;//Makes a dynamic sbj array of class student.
     char temp;
-    crs::course* sbj;
     
-    ifstream file("Course.bin", ios::binary | ios::ate);
+    //Opens the file "course.bin" and puts already saved course info to formerly defined array sbj for printing the info to student and profs.
+    ifstream file("course.bin", ios::binary | ios::ate);
     if(file.is_open())
     {
         streampos fileSize = file.tellg();
-        char* cBrick = new char[fileSize];
+        char* cBrick = new char[fileSize];//Allocate a char array of file size.
         file.seekg(0,ios::beg);
         file.read(cBrick, fileSize);
         file.close();
@@ -354,10 +351,10 @@ int readcourse(bool boolselectcrs, short person, string user)
         char* c = cBrick;
         char* tempPtr = cBrick;
 
-        for(int i = 0; i < fileSize; i++){
+        for(int i = 0; i < fileSize; i++){//Counts the exclamation marks.
             char k = *((char*)tempPtr);
             
-            if(k != '?'){
+            if(k != '!'){
                 tempPtr++;
             }
             else{
@@ -369,16 +366,16 @@ int readcourse(bool boolselectcrs, short person, string user)
         NumofCourse=countStop/4; /*For each course data in the array we add 4 question mark. So that the total of the question mark 
         divided by 4 gives us the number of course.*/     
 
-        sbj = new crs::course[NumofCourse]; //this is the dynamic array that storage each courses' data
+        sbj = new crs::course[NumofCourse]; //This is the dynamic array that storage each courses data.
         
         for(int i=0; i<NumofCourse; i++)
         {
             
-            for(int j=0; j<25; j++)
+            for(int j=0; j<25; j++)//Sets course name.
             {
                 temp = *((char*)c);
 
-                if(temp != '?')
+                if(temp != '!')
                 {
                     sbj[i].courseName += *((char*)c);
                     c++;
@@ -390,11 +387,11 @@ int readcourse(bool boolselectcrs, short person, string user)
                 }
             }
             
-            for(int j=0; j<10; j++)
+            for(int j=0; j<10; j++)//Sets prof name.
             {
                 temp = *((char*)c);
                 
-                if(temp != '?')
+                if(temp != '!')
                 {
                     sbj[i].profName += *((char*)c);
                     c++;
@@ -406,11 +403,11 @@ int readcourse(bool boolselectcrs, short person, string user)
                 }
             }
 
-            for(int j=0; j<10; j++)
+            for(int j=0; j<10; j++)//Sets the prof surname.
             {
                 temp = *((char*)c);
                 
-                if(temp != '?')
+                if(temp != '!')
                 {
                     sbj[i].profSurname += *((char*)c);
                     c++;
@@ -422,11 +419,11 @@ int readcourse(bool boolselectcrs, short person, string user)
                 }
             }
             
-            for(int j=0; j<2; j++)
+            for(int j=0; j<2; j++)//Sets the course credit.
             {
                 temp = *((char*)c);
 
-                if(temp != '?')
+                if(temp != '!')
                 {
                     sbj[i].courseCredit += *((char*)c);
                     c++;
@@ -439,9 +436,10 @@ int readcourse(bool boolselectcrs, short person, string user)
             }
             
         }
-        delete[] cBrick;
+        delete[] cBrick;//Deallacote heap memory by deleting cBrick.
     }
 
+    //If there isn't any course available it will print out this.
     else
     {
         cout<<endl;
@@ -462,8 +460,8 @@ int readcourse(bool boolselectcrs, short person, string user)
 
 
 
-    // if the person is a student or teaching assistant can see this on the terminal.
-    if(person==1||person==2){
+    // if the person is a student can see this on the terminal.
+    if(person==1){//This section asks person whether they want to select a course or not.
         short crselect;
         short yesno;
             do{
@@ -480,7 +478,7 @@ int readcourse(bool boolselectcrs, short person, string user)
                             cout<<"Please enter the number of course to select: ";
                             cin>>crselect;
                             short rcrselect=crselect-1;
-                            gotocourseselection(sbj,rcrselect,user);
+                            gotocourseselection(sbj,rcrselect,user);//If they want to select a course. This function will let them select the course they want.
                             }while(crselect<1||crselect>20);
                             break;
                     

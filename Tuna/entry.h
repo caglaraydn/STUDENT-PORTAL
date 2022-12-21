@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void userInfo(string &inputUser, string &inputPass){
+void userInfo(string &inputUser, string &inputPass){//Gets the user info.
     do{
     cout << "Please enter your username to login (maximum 11 characters): ";
     cin >> inputUser;
@@ -18,7 +18,7 @@ void userInfo(string &inputUser, string &inputPass){
 }
 
 
-bool isInfoTrue(string inputusr, string inputpw, string savedUser, string savedPass){
+bool isInfoTrue(string inputusr, string inputpw, string savedUser, string savedPass){//Checks the user info. 
 
     if(inputusr == savedUser && inputpw == savedPass){
         return true;
